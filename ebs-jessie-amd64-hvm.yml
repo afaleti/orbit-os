@@ -1,0 +1,50 @@
+---
+name: debian-{system.release}-{system.architecture}-{provider.virtualization}-{%Y}-{%m}-{%d}-ebs
+provider:
+  name: ec2
+  virtualization: hvm
+  enhanced_networking: simple
+  description: Debian {system.release} {system.architecture}
+bootstrapper:
+  workspace: ./build
+  tarball: true
+packages:
+  install:
+    - htop
+    - strace
+    - sysdig
+    - etcd
+    - fleet
+  install_standard: true
+  mirror: http://cloudfront.debian.net/debian
+  sources:
+    sid:
+      - deb http://mirrors.kernel.org/debian/ unstable main
+  preferences:
+    main:
+      - package: "*"
+        pin: release o=Debian, n=jessie
+        pin-priority: 800
+      - package: fleet etcd
+        pin: release o=Debian, n=sid
+        pin-priority: 840 
+system:
+  release: jessie
+  architecture: amd64
+  bootloader: extlinux
+  charmap: UTF-8
+  locale: en_US
+  timezone: UTC
+volume:
+  backing: ebs
+  partitions:
+    type: none
+    root:
+      filesystem: ext4
+      size: 8GiB
+packages:
+  mirror: http://cloudfront.debian.net/debian
+plugins:
+  cloud_init:
+    metadata_sources: Ec2
+    username: admin
