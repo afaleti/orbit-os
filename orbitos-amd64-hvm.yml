@@ -41,7 +41,6 @@ packages:
     # Orchestration
     - etcd
     - fleet
-
   install_standard: false
   mirror: https://cloudfront.debian.net/debian
   sources:
@@ -70,7 +69,6 @@ volume:
     root:
       filesystem: ext4
       size: 8GiB
-
 plugins:
   cloud_init:
     metadata_sources: Ec2
