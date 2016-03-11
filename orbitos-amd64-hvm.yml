@@ -15,7 +15,8 @@ packages:
     - sysdig
     - etcd
     - fleet
-  install_standard: true
+
+  install_standard: false
   mirror: http://cloudfront.debian.net/debian
   sources:
     sid:
