@@ -10,9 +10,34 @@ bootstrapper:
   tarball: true
 packages:
   install:
+    # System utilities
+    - apt-listbugs
+    - apt-listchanges
+    - aptitude
+    - ca-certificates
+    - debian-goodies
+    - dstat
+    - file
     - htop
+    - less
+    - lsof
+    - mtr-tiny
+    - openntpd
+    - psmisc
     - strace
+    - sudo
     - sysdig
+    - task-ssh-server
+    - tcpdump
+    - tmux
+    - unp
+
+    # Haveged, the entropy gathering deamon
+    # NOTE: It is unclear how good this is in VMs.
+    #       Is there a way to get entropy from the hypervisor?
+    - haveged
+
+    # Orchestration
     - etcd
     - fleet
 
