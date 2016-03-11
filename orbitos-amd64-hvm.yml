@@ -13,6 +13,7 @@ packages:
     # System utilities
     - apt-listbugs
     - apt-listchanges
+    - apt-transport-https
     - aptitude
     - ca-certificates
     - debian-goodies
@@ -42,10 +43,10 @@ packages:
     - fleet
 
   install_standard: false
-  mirror: http://cloudfront.debian.net/debian
+  mirror: https://cloudfront.debian.net/debian
   sources:
     sid:
-      - deb http://mirrors.kernel.org/debian/ unstable main
+      - deb https://cloudfront.debian.net/debian sid main
   preferences:
     main:
       - package: "*"
@@ -53,7 +54,8 @@ packages:
         pin-priority: 800
       - package: fleet etcd
         pin: release o=Debian, n=sid
-        pin-priority: 840 
+        pin-priority: 840
+
 system:
   release: jessie
   architecture: amd64
@@ -68,8 +70,7 @@ volume:
     root:
       filesystem: ext4
       size: 8GiB
-packages:
-  mirror: http://cloudfront.debian.net/debian
+
 plugins:
   cloud_init:
     metadata_sources: Ec2
