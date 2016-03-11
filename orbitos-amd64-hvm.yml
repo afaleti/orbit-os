@@ -1,25 +1,52 @@
 ---
-name: debian-{system.release}-{system.architecture}-{provider.virtualization}-{%Y}-{%m}-{%d}-ebs
+name: orbit-os-{system.release}-{system.architecture}-{provider.virtualization}-{%Y}-{%m}-{%d}-ebs
 provider:
   name: ec2
   virtualization: hvm
   enhanced_networking: simple
-  description: Debian {system.release} {system.architecture}
+  description: Orbit OS -- Debian {system.release} {system.architecture}
 bootstrapper:
   workspace: ./build
   tarball: true
 packages:
   install:
+    # System utilities
+    - apt-listbugs
+    - apt-listchanges
+    - apt-transport-https
+    - aptitude
+    - ca-certificates
+    - debian-goodies
+    - dstat
+    - file
     - htop
+    - less
+    - lsof
+    - mtr-tiny
+    - openntpd
+    - psmisc
     - strace
+    - sudo
     - sysdig
+    - task-ssh-server
+    - tcpdump
+    - tmux
+    - unp
+
+    # Haveged, the entropy gathering deamon
+    # NOTE: It is unclear how good this is in VMs.
+    #       Is there a way to get entropy from the hypervisor?
+    - haveged
+
+    # Orchestration
     - etcd
     - fleet
-  install_standard: true
-  mirror: http://cloudfront.debian.net/debian
+
+  install_standard: false
+  mirror: https://cloudfront.debian.net/debian
   sources:
     sid:
-      - deb http://mirrors.kernel.org/debian/ unstable main
+      - deb https://cloudfront.debian.net/debian sid main
   preferences:
     main:
       - package: "*"
@@ -27,7 +54,8 @@ packages:
         pin-priority: 800
       - package: fleet etcd
         pin: release o=Debian, n=sid
-        pin-priority: 840 
+        pin-priority: 840
+
 system:
   release: jessie
   architecture: amd64
@@ -42,8 +70,7 @@ volume:
     root:
       filesystem: ext4
       size: 8GiB
-packages:
-  mirror: http://cloudfront.debian.net/debian
+
 plugins:
   cloud_init:
     metadata_sources: Ec2
