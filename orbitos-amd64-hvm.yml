@@ -6,7 +6,7 @@ provider:
   enhanced_networking: simple
   description: Orbit OS -- Debian {system.release} {system.architecture}
 bootstrapper:
-  workspace: ./build
+  workspace: /tmp/build
   tarball: true
 packages:
   install:
