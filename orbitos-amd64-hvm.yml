@@ -55,6 +55,11 @@ packages:
         pin: release o=Debian, n=sid
         pin-priority: 840
 
+  apt.conf.d:
+    00InstallRecommends: >-
+      APT::Install-Recommends "false";
+      APT::Install-Suggests   "false";
+
 system:
   release: jessie
   architecture: amd64
