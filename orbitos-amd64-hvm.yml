@@ -20,6 +20,7 @@ packages:
     - dstat
     - file
     - htop
+    - kexec-tools
     - less
     - lsof
     - mtr-tiny
@@ -41,11 +42,14 @@ packages:
     # Orchestration
     - etcd
     - fleet
+
   install_standard: false
+
   mirror: https://cloudfront.debian.net/debian
   sources:
     sid:
       - deb https://cloudfront.debian.net/debian sid main
+
   preferences:
     main:
       - package: "*"
@@ -78,3 +82,7 @@ plugins:
   cloud_init:
     metadata_sources: Ec2
     username: admin
+
+  debconf: >-
+    # Make kexec-tools handle reboots
+    kexec-tools     kexec-tools/load_kexec  boolean true
