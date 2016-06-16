@@ -86,3 +86,6 @@ plugins:
   debconf: >-
     # Make kexec-tools handle reboots
     kexec-tools     kexec-tools/load_kexec  boolean true
+  ec2_publish:
+    manifest_url: https://pebble-amis.s3-us-west-2.amazonaws.com/orbit-os/latest.json
+    public: true
